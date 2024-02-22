@@ -21,10 +21,14 @@ export class TaskContainer extends LitElement {
 
   addTask(event: Event) {
     event?.preventDefault();
-    const task = this.shadowRoot?.getElementById("taskInput") as HTMLInputElement;
+    const task = this.shadowRoot?.getElementById(
+      "taskInput"
+    ) as HTMLInputElement;
     this.tasks.push(task.value);
-    task.value = '';
-    this.requestUpdate();  }
+    task.value = "";
+    this.requestUpdate();
+  }
+  removeTask() {}
   render() {
     return html`
         <div>
@@ -35,7 +39,7 @@ export class TaskContainer extends LitElement {
             </form>
 
             <p>Your Tasks: </p>
-            ${this.tasks.map(task => html`<p>${task}</p>`)}
+            ${this.tasks.map((task) => html`<p>${task}</p>`)}
 
 
         </div>
