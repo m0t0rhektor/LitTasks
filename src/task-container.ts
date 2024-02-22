@@ -10,8 +10,15 @@ export class TaskContainer extends LitElement {
       text-align: center;
       color: green;
     }
-    button:hover {
-      color: green;
+    button.remove {
+      background-color: transparent;
+      border: none;
+      color: red;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+    button.remove:hover {
+      color: darkred;
     }
   `;
   constructor() {
@@ -28,7 +35,13 @@ export class TaskContainer extends LitElement {
     task.value = "";
     this.requestUpdate();
   }
-  removeTask() {}
+  removeTask(target: string) {
+    var index = this.tasks.findIndex((task) => task === target);
+    if (index !== -1) {
+      this.tasks.splice(index, 1);
+    }
+    this.requestUpdate();
+  }
   render() {
     return html`
         <div>
@@ -39,7 +52,14 @@ export class TaskContainer extends LitElement {
             </form>
 
             <p>Your Tasks: </p>
-            ${this.tasks.map((task) => html`<p>${task}</p>`)}
+            ${this.tasks.map(
+              (task) => html` <div>
+                <span>${task}</span>
+                <button class="remove" @click=${() => this.removeTask(task)}>
+                  X
+                </button>
+              </div>`
+            )}
 
 
         </div>
